@@ -3,8 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
-		<title>Jquery.getter by Ray</title>
-
+		<title>Jquery.abstracts by Ray</title>
 		<link rel="stylesheet" href="stylesheets/styles.css">
 		<link rel="stylesheet" href="stylesheets/pygment_trac.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -15,38 +14,66 @@
 	<body>
 		<div class="wrapper">
 			<header>
-				<h1>Jquery.getter</h1>
-				<p>extension jquery get function calls to the server to manage. It has called for views and data api json.</p>
-
-				<p class="view"><a href="https://github.com/lokcito/jquery.getter">View the Project on GitHub <small>lokcito/jquery.getter</small></a></p>
-
-
+				<h1>Jquery.abstracts</h1>
+				<p>Son un cojunto de funciones que extienden a las existentes en Jquery, especificamente las funciones <strong>$.get, $.post</strong></p>
+				<p class="view">
+					<a href="https://github.com/lokcito/jquery.getter">View the Project on GitHub <small>lokcito/jquery.abstracts</small></a>
+				</p>
 				<ul>
-				<li><a href="https://github.com/lokcito/jquery.getter/zipball/master">Download <strong>ZIP File</strong></a></li>
-				<li><a href="https://github.com/lokcito/jquery.getter/tarball/master">Download <strong>TAR Ball</strong></a></li>
-				<li><a href="https://github.com/lokcito/jquery.getter">View On <strong>GitHub</strong></a></li>
+					<li><a href="https://github.com/lokcito/jquery.getter/zipball/master">Download <strong>ZIP File</strong></a></li>
+					<li><a href="https://github.com/lokcito/jquery.getter/tarball/master">Download <strong>TAR Ball</strong></a></li>
+					<li><a href="https://github.com/lokcito/jquery.getter">View On <strong>GitHub</strong></a></li>
 				</ul>
 			</header>
 			<section>
 				<h2>
-					<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Your project works with Apis?
+					<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Tu Proyecto usa AJAX?
 				</h2>
-				<p>Jquery is an extension of jquery getter. With which you can better manage your calls to a service, api or resource.</p>
-				<p>It is necessary, install and configure.
-				Then forget about a long path of service, api or resource you request through getter.</p>
-				<strong>Here is a usage example:</strong>
-				<pre><code>$.getter({
-	'type' : 'api',
-	'url' : 'api/customers',
-	'params' : '&id=' + 1,
-	'success' : function(response){
-		some things ...
+				<p>Lo usual en cada proyecto, es utilizar la llamada función Jquery <strong>$.get, $.post o $.ajax</strong>.</p>
+				<pre>
+					<code>
+//usando $.get						
+$.get('/url/', function(response) {
+	//hacer algo con response
+});
+
+//usando $.post
+$.post('/url/', {'llave' : 'valor'})
+.success(function(response) {
+	//hacer algo con response
+})
+.error(function(error){
+	//hacer algo con error
+});
+					</code>
+				</pre>
+				<h3>
+					<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Jquery Getter, has the following methods:</h3>
+					<p>
+						El códido de arriba funcionará, pero al pasar lo meses, desearas realizar cambios en las url's. Y el problema sera que si no tienes una documentacion de todos los lugares donde utilizaste peticiones ajax. Algunas de esas peticiones daran error, ya que al actualizar el codigo por el cambio de rutas es posible que te olvides modificar alguna ruta.
+					</p>
+				</h3>
+				<h3>
+					<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Mejor, Utiliza una abstracción:</h3>
+					<p>
+				<pre>
+					<code>
+$.getter({
+	'url' : 'url',
+	'params' : 'param=12',
+	'success' : function(res) {
+		//hacer algo
 	},
-	'error' : function(){
-
+	'empty' : function(res) {
+		//response vacio
+	},
+	'error' : function(err) {
+		//hacer algo
 	}
-})</code></pre>
-
+});
+					</code>
+				</pre>
+					</p>
 				<h3>
 					<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Jquery Getter, has the following methods:</h3>
 					<ul>

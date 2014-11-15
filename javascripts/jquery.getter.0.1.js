@@ -1,37 +1,18 @@
 ;jQuery.getter = function ( params ) {
-	params.params = params.params || '';
-	params.empty = params.empty || '';
-	params.warning = params.warning || 'Error. Failed to complete the operation.';
-	if ( params['type'] == 'views' ) {
-			$.get('/static/views/' + params.url)
-			.success(function(request){
-				if ($.isFunction(params.success)) {params.success(request);}
-			})
-			.error(function(){
-				if ( $.isFunction(callNotication) ) {callNotication(params.warning)}
-			});
-		} else if ( params['type'] == 'api' ) {
-			$.get('/api/core/' + params.url + "/?format=json" + params.params)
-			.success(function(request){
-				if ( request['meta']['total_count'] > 0 ) {
-					if ($.isFunction(params.success)) {params.success(request);}
-				} else {
-					if ( $.isFunction(params.empty) ) {params.empty(request)}
-					else {
-						if ( $.isFunction(callNotication) ) {callNotication(params.warning)}
-					}
-				}
-			})
-			.error(function(){
-				if ( $.isFunction(callNotication) ) {callNotication(params.warning)}
-			});
-		} else {
-			$.get('/api/core/' + params.url + params.params)
-			.success(function(request){
-				if ($.isFunction(params.success)) {params.success(request);}
-			})
-			.error(function(){
-				if ( $.isFunction(callNotication) ) {callNotication(params.warning)}
-			});
+params.params = params.params || '';
+params.empty = params.empty || '';
+params.warning = params.warning || 'Alerta. No existen resultados.';
+params.error = params.error || '';
+
+$.get(PROYECTO.settings.base || '/' + params.url + "/?" + params.params)
+	.success(function(res){
+		if ( !res ) {
+			if ( $.isFunction(params.empty) ) {params.empty(res)}
+			else {alert(params.warning)}
+	})
+	.error(function(err){
+		if (err['status'] && err['status'] == 405 ) {
+			alert(eval('[' + err['responseText'] + ']')[0]['msg']);
 		}
-}
+		if ( $.isFunction(params.error) ) {params.error(err)}
+	});
